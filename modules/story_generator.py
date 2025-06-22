@@ -1,10 +1,12 @@
 import requests
+import streamlit as st
 import os
-from dotenv import load_dotenv
+
 
 # Load API Key from .env
-load_dotenv()
-HF_API_KEY = os.getenv("HUGGINGFACE_API_KEY")
+
+
+HF_TOKEN = st.secrets["api"]["huggingface_token"]
 
 def generate_story(name: str, age: int, hobbies: str, tone: str) -> str:
     prompt = (
@@ -14,7 +16,7 @@ def generate_story(name: str, age: int, hobbies: str, tone: str) -> str:
 
     url = "https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta"
     headers = {
-        "Authorization": f"Bearer {HF_API_KEY}"
+        "Authorization": f"Bearer {HF_TOKEN}"
     }
 
     payload = {
